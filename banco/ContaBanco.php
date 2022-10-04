@@ -9,35 +9,90 @@
 
         function __construct()
         {
-            $this->status = false;    
-            $this->saldo = 0;    
+            $this->setSaldo(0);    
+            $this->setStatus(false);    
         }
-        public function abrirConta() {
-            $this->status = true;
-            if ($this->tipo == "CC"){
-                $this->saldo = 50;
-            }else {
-                $this->saldo = 150;
+        public function abrirConta($t) {
+            $this->setTipo($t);
+            $this->setStatus(true);
+            
+            if ($t == "CC"){
+                $this->setSaldo(50);
+            }else if ($t = "CP") {
+                $this->saldo = 150; // duas formas de fazer a atribuir valor
             }
         }
         public function fecharConta() {
-            if($this->saldo == 0){
-
+            if($this->getSaldo() > 0){
+                echo "<p>Conta ainda tem dinheiro</p>";
+            }elseif ($this->getSaldo() < 0) {
+                echo "Não foi possível fechar a conta, está em débito";
             }else {
-                echo "Não foi possível fechar a conta, tem saldo ou débito ativo";
+                $this->setStatus(false);
             }
         }
-        public function depositar() {
+        public function depositar($v) {
             // $this->saldo += ; add variavel contendo valor que vier do index
+            if($this->getStatus()) { //se getStatus for verdadeiro faça {}
+                $this->setSaldo($this->getSaldo() + $v);
+            }else {
+                echo "<p>Conta fechada. Não consigo depositar.</p>";
+            }
         }
-        public function sacar() {
-            // $this->saldo -= ;
+        public function sacar($v) {
+            if($this->getStatus()) {
+                if ($this->getSaldo() > $v) {
+                    $this->setSaldo($this->getSaldo() - $v);
+                }else {
+                    echo "Saldo insuficiente para saque.";
+                }
+            }else {
+                echo "Não posso sacar de uma conta fechada";
+            }
         }
         public function pagarMensal() {
-            
+            if($this->getTipo() == "CC") {
+                $v = 12;
+            }else if($this->getTipo() == "CP") {
+                $v = 20;
+            }
+            if($this->getStatus()) {
+                $this->setSaldo($this->getSaldo() - $v);
+            }else {
+                echo "Problemas com a conta. Não posso cobrar.";
+            }
         }
 
+        // Métodos Especiais
+        public function getnumConta() {
+            return $this->numConta;
+        }
+        public function setnumConta($n) {
+            $this->numConta = $n;
+        }
+        public function getTipo() {
+            return $this->tipo;
+        }
+        public function setTipo($tipo) {
+            $this->tipo = $tipo;
+        }
+        public function getDono() {
+            return $this->dono;
+        }
+        public function setDono($dono) {
+            $this->dono = $dono;
+        }
+        public function getSaldo() {
+            return $this->saldo;
+        }
+        public function setSaldo($saldo) {
+            $this->saldo = $saldo;
+        }
+        public function getStatus() {
+            return $this->status;
+        }
+        public function setStatus($status) {
+            $this->status = $status;
+        }
     }
-
-
 ?>

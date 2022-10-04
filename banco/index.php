@@ -12,7 +12,7 @@
         $obj = new ContaBanco; 
 
 
-        print_r($c1);
+        print_r($obj);
         
     ?>
     </pre>
