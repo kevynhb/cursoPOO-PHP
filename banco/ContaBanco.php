@@ -10,7 +10,8 @@
         function __construct()
         {
             $this->setSaldo(0);    
-            $this->setStatus(false);    
+            $this->setStatus(false);   
+            echo "<p>Conta criada com sucesso! </p>";
         }
         public function abrirConta($t) {
             $this->setTipo($t);

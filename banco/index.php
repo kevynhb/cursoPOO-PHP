@@ -9,11 +9,18 @@
     <?php 
         require_once 'ContaBanco.php'; 
 
-        $obj = new ContaBanco; 
+        $p1 = new ContaBanco;  // Jubileu
+        $p2 = new ContaBanco;  // Creuza
 
-
-        print_r($obj);
+        $p1->abrirConta("CC");
+        $p1->setDono("Jubileu");
         
+        $p2->abrirConta("CP");
+        $p1->setDono("Creuza");
+
+        print_r($p1);
+        print_r($p2);
+
     ?>
     </pre>
 </body>
